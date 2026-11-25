@@ -9,6 +9,9 @@ services:
         condition: service_started
     ports:
       - "${FRONTEND_PORT}:80"
+    environment:
+      PTKNOW_SERVER_NAMES: ${PTKNOW_SERVER_NAMES:-ptknow.ru www.ptknow.ru}
+      PTKNOW_BACKEND_PORT: ${PTKNOW_PORT:-8080}
 
   postgres:
     image: postgres:18
@@ -66,6 +69,9 @@ services:
       JAVA_OPTS: ${JAVA_OPTS}
     expose:
       - "${PTKNOW_PORT}"
+    volumes:
+      - uploads-data:${APP_FILE_UPLOAD_DIR:-/data/uploads}
 
 volumes:
   postgres-data:
+  uploads-data:

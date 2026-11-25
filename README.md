@@ -100,7 +100,9 @@ docker compose -f compose.yaml -f compose.dev.yaml logs -f minio
 
 ## 📎 Примечание
 
-Базовый `compose.yaml` публикует наружу только `frontend`.
+Базовый `compose.yaml` публикует порты `frontend` и `postgres`.
 `backend` доступен только внутри docker-сети и должен вызываться через `/api` на фронтовом `nginx`
+Домены в `PTKNOW_SERVER_NAMES` разделяются пробелами. Nginx берёт порт backend из `PTKNOW_PORT`.
+Для хранилища `LOCAL` укажите абсолютный `APP_FILE_UPLOAD_DIR`. Compose монтирует туда том `uploads-data`.
 Базовый `compose.yaml` не зависит от локального MinIO и подходит как нейтральный шаблон для развёртывания.
 Сценарий локальной проверки S3-совместимого хранилища вынесен в `compose.dev.yaml`
